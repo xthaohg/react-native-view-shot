@@ -349,29 +349,29 @@ public class ViewShot implements UIBlock {
         //after view is drawn, go through children
         final List<View> childrenList = getAllChildren(view);
 
-        for (final View child : childrenList) {
-            // skip any child that we don't know how to process
-            if (!(child instanceof TextureView)) continue;
-
-            // skip all invisible to user child views
-            if (child.getVisibility() != VISIBLE) continue;
-
-            final TextureView tvChild = (TextureView) child;
-            tvChild.setOpaque(false); // <-- switch off background fill
-
-            // NOTE (olku): get re-usable bitmap. TextureView should use bitmaps with matching size,
-            // otherwise content of the TextureView will be scaled to provided bitmap dimensions
-            final Bitmap childBitmapBuffer = tvChild.getBitmap(getExactBitmapForScreenshot(child.getWidth(), child.getHeight()));
-
-            final int countCanvasSave = c.save();
-            applyTransformations(c, view, child);
-
-            // due to re-use of bitmaps for screenshot, we can get bitmap that is bigger in size than requested
-            c.drawBitmap(childBitmapBuffer, 0, 0, paint);
-
-            c.restoreToCount(countCanvasSave);
-            recycleBitmap(childBitmapBuffer);
-        }
+//        for (final View child : childrenList) {
+//            // skip any child that we don't know how to process
+//            if (!(child instanceof TextureView)) continue;
+//
+//            // skip all invisible to user child views
+//            if (child.getVisibility() != VISIBLE) continue;
+//
+//            final TextureView tvChild = (TextureView) child;
+//            tvChild.setOpaque(false); // <-- switch off background fill
+//
+//            // NOTE (olku): get re-usable bitmap. TextureView should use bitmaps with matching size,
+//            // otherwise content of the TextureView will be scaled to provided bitmap dimensions
+//            final Bitmap childBitmapBuffer = tvChild.getBitmap(getExactBitmapForScreenshot(child.getWidth(), child.getHeight()));
+//
+//            final int countCanvasSave = c.save();
+//            applyTransformations(c, view, child);
+//
+//            // due to re-use of bitmaps for screenshot, we can get bitmap that is bigger in size than requested
+//            c.drawBitmap(childBitmapBuffer, 0, 0, paint);
+//
+//            c.restoreToCount(countCanvasSave);
+//            recycleBitmap(childBitmapBuffer);
+//        }
 
         if (width != null && height != null && (width != w || height != h)) {
             final Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
